@@ -58,7 +58,7 @@ function Cart({ open, setOpen, cart, change, clear }) {
     store.set("mm_cust", c);
     const body = cart.map(l => `• ${l.name} (${l.size}) × ${l.qty} = ${l.price * l.qty} ج`).join("\n");
     const msg = `🧾 فاتورة طلب - ماكس مام\nرقم: ${no}\nالتاريخ: ${now}\n━━━━━━━━━━\n${body}\n━━━━━━━━━━\nعدد القطع: ${cnt}\nالإجمالي: ${total} ج (التوصيل حسب المنطقة)\n\n👤 ${c.name || "-"}\n📞 ${c.phone}\n📍 ${c.addr}`;
-    window.open(`https://wa.me/${window.PHONE}?text=${encodeURIComponent(msg)}`, "_blank");
+    const url = window.waLink(msg); if (!window.open(url, "_blank")) location.href = url;
     setSent(true); setTimeout(() => setSent(false), 3500);
   };
   return h(Fragment, null,
