@@ -36,11 +36,20 @@ function Item({ it, sizes, icon, cat, qtys, onAdd, onDec }) {
       })));
 }
 
+// رقم أوردر فريد: التاريخ + الملي ثانية في اليوم (base36) + حرف عشوائي. بيتولد مرة لكل أوردر.
+const newNo = () => {
+  const d = new Date(), p = n => String(n).padStart(2, "0");
+  const ms = ((d.getHours() * 60 + d.getMinutes()) * 60 + d.getSeconds()) * 1000 + d.getMilliseconds();
+  return "MM-" + String(d.getFullYear()).slice(2) + p(d.getMonth() + 1) + p(d.getDate()) + "-" + ms.toString(36).toUpperCase().padStart(6, "0") + Math.floor(Math.random() * 36).toString(36).toUpperCase();
+};
+
 function Cart({ open, setOpen, cart, change, clear }) {
   const [c, setC] = useState(() => store.get("mm_cust", { name: "", phone: "", addr: "" }));
   const [err, setErr] = useState({});
   const [sent, setSent] = useState(false);
-  const [no] = useState(() => "MM-" + Date.now().toString().slice(-6));
+  const [no, setNo] = useState(() => store.get("mm_no", null) || newNo());
+  useEffect(() => store.set("mm_no", no), [no]);
+  const reset = () => { clear(); setNo(newNo()); };
   const now = useMemo(() => new Date().toLocaleString("ar-EG", { dateStyle: "short", timeStyle: "short" }), [open]);
   const total = cart.reduce((s, l) => s + l.price * l.qty, 0);
   const cnt = cart.reduce((s, l) => s + l.qty, 0);
@@ -64,7 +73,7 @@ function Cart({ open, setOpen, cart, change, clear }) {
     const body = cart.map(l => `• ${l.name} (${l.size}) × ${l.qty} = ${l.price * l.qty} ج`).join("\n");
     const msg = `🧾 فاتورة طلب - ماكس مام\nرقم: ${no}\nالتاريخ: ${now}\n━━━━━━━━━━\n${body}\n━━━━━━━━━━\nعدد القطع: ${cnt}\nالإجمالي: ${total} ج (التوصيل حسب المنطقة)\n\n👤 ${c.name || "-"}\n📞 ${c.phone}\n📍 ${c.addr}`;
     const url = (window.waLink || (t => "https://api.whatsapp.com/send?phone=" + window.PHONE + "&text=" + encodeURIComponent(t)))(msg); if (!window.open(url, "_blank")) location.href = url;
-    setSent(true); setTimeout(() => setSent(false), 3500);
+    setSent(true); setTimeout(() => { setSent(false); setNo(newNo()); }, 3500);
   };
   return h(Fragment, null,
     h("div", { className: "backdrop" + (open ? " show" : ""), onClick: () => setOpen(false) }),
@@ -93,7 +102,7 @@ function Cart({ open, setOpen, cart, change, clear }) {
                 h("div", { className: "bar" }), h("p", { className: "thx" }, "شكراً لاختياركم ماكس مام ❤")))),
       cart.length > 0 && h("div", { className: "dfoot" },
         h("button", { className: "btn", onClick: send }, "ابعت الفاتورة واتساب"),
-        h("button", { className: "clear", onClick: clear }, "فضّي الفاتورة"))));
+        h("button", { className: "clear", onClick: reset }, "فضّي الفاتورة"))));
 }
 
 // تطبيع النص العربي: تشكيل، همزات، ة/ه، ى/ي
