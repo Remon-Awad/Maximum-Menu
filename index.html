@@ -2,47 +2,114 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ماكس مام | Maximmum Restaurant</title>
+<meta name="description" content="ماكس مام - بيتزا، فطير حادق وحلو، كريب، باستا وديليفري 24 ساعة في مدينة العبور">
+<meta name="theme-color" content="#5e0d13">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Playfair+Display:ital,wght@1,700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800;900&family=Reem+Kufi:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Lobster&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<div id="pre" aria-hidden="true">
+  <div class="pre-in">
+    <span class="logo" data-brand style="--bs:30px"></span>
+    <div class="pre-bar"><i></i></div>
+    <div class="pct"><span id="pct">0</span>%</div>
+    <small>بنسخّن الفرن...</small>
+  </div>
+</div>
+<div id="bar"></div>
+
 <header class="top" id="top">
-  <a class="logo" href="#top"><i>ma</i><b>X</b><span>immum</span></a>
-  <nav><a href="#menu">المنيو</a><a href="#contact">اطلب</a></nav>
+  <a class="logo" data-brand href="#top"></a>
+  <nav id="nav" aria-label="القائمة الرئيسية">
+    <a href="#top" data-s="hero">الرئيسية</a>
+    <a href="#battle" data-s="battle">حادق ولا حلو</a>
+    <a href="#menu" data-s="menu">المنيو</a>
+    <a href="#contact" data-s="contact">اتصل بينا</a>
+    <a class="btn gold navcta" id="waHead" href="#" target="_blank" rel="noopener">اطلب واتساب</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="فتح القائمة" aria-expanded="false"><i></i><i></i><i></i></button>
 </header>
 
 <section class="hero">
   <div class="hero-text">
-    <h1>مـعـاك في <em>أي مكان</em></h1>
+    <h1><span class="band">مـــعـــاك</span><span class="band">في <em>أي مكان</em></span></h1>
     <p>بيتزا بتتمطط، كريب سخن، وفطيرة حادقة ولا حلوة. اختار وابعت طلبك واتساب في ثواني.</p>
     <div class="hero-btns">
       <a class="btn gold" href="#menu">شوف المنيو</a>
       <a class="btn ghost" id="waHero" href="#" target="_blank" rel="noopener">اطلب واتساب</a>
     </div>
+    <ul class="stats">
+      <li><b data-n="24">0</b><span>ساعة ديليفري</span></li>
+      <li><b data-n="150">0</b><span>صنف في المنيو</span></li>
+      <li><b data-n="9">0</b><span>أقسام حلوة وحادقة</span></li>
+    </ul>
   </div>
   <div class="hero-art" aria-hidden="true">
-    <div class="slice s1"></div><div class="slice s2"></div>
-    <div class="clock"><span>12</span><small>حل آخر الليل</small></div>
+    <div class="vs">VS</div>
+    <div class="plate p-sweet"><i></i></div>
+    <div class="plate p-hot"><i></i></div>
+    <span class="bit b1"></span><span class="bit b2"></span><span class="bit b3"></span><span class="bit b4"></span><span class="bit b5"></span><span class="bit b6"></span>
+    <div class="stamp"><span>12</span><small>حل آخر الليل</small></div>
   </div>
 </section>
 
-<div class="ticker" aria-hidden="true"><div id="ticker"></div></div>
+<div class="info"><span>🕐 ديليفري 24 ساعة</span><span>📍 فرع مدينة العبور</span><span>🔥 أكل سخن لحد باب البيت</span></div>
 
+<section class="battle" id="battle">
+  <button class="side hot" data-go="hadeq">
+    <small>مالح ومقرمش</small><h2>حـــادق</h2>
+    <p>لحمة، جبنة سايحة وخضار على عجينة مشلتتة.</p><span class="go">شوف الحادق</span>
+  </button>
+  <div class="vs big">VS</div>
+  <button class="side sweet" data-go="sweetpie">
+    <small>بستاشيو وشوكولاتة</small><h2>ولاحـــلو</h2>
+    <p>نوتيلا، لوتس وبستاشيو ينزلوا على فطيرة دهبية.</p><span class="go">شوف الحلو</span>
+  </button>
+</section>
+
+<section class="night">
+  <div class="dial" aria-hidden="true"><i class="hand m"></i><i class="hand s"></i><b>12</b></div>
+  <div class="night-text">
+    <h2>حـــل آخـــر <span>الــليـــل</span></h2>
+    <p>الساعة عدّت 12 والجوع صاحي؟ المطبخ شغال 24 ساعة، وشاورما بالجبنة السايحة توصلك لحد الباب.</p>
+    <a class="btn gold" id="waNight" href="#" target="_blank" rel="noopener">اطلب دلوقتي</a>
+  </div>
+</section>
+
+<section class="steps">
+  <h2>اطلب في 3 خطوات</h2>
+  <ol>
+    <li><b>1</b><h3>اختار</h3><p>تصفّح المنيو واضغط على المقاس اللي يعجبك.</p></li>
+    <li><b>2</b><h3>ابعت واتساب</h3><p>السلة بتجهز رسالة بالطلب والإجمالي، ضيف عنوانك وابعت.</p></li>
+    <li><b>3</b><h3>استلم سخن</h3><p>الأكل بيطلع من الفرن لباب بيتك في أي وقت.</p></li>
+  </ol>
+</section>
+
+<div class="menu-head"><h2>المنيو</h2><p>اختار القسم أو دوّر باسم الصنف</p></div>
 <main id="menu"><div id="root"><p style="text-align:center;padding:60px 0;font-weight:800">بنحمّل المنيو... لو ما ظهرش تأكد إنك متصل بالنت 🍕</p></div></main>
 
 <footer id="contact">
+  <span class="foot-logo" data-brand style="--bs:20px"></span>
   <h2>جعان دلوقتي؟</h2>
   <p>ابعت طلبك على واتساب أو كلمنا ديليفري.</p>
+  <div class="contacts">
+    <a href="tel:01144646936"><small>اتصل الآن</small>01144646936</a>
+    <a href="tel:01228965608"><small>اتصل الآن</small>01228965608</a>
+    <a href="tel:0244792184"><small>خط أرضي</small>02 44792184</a>
+    <div><small>العنوان</small>مدينة العبور - أول السبعين - مول النيل<br>بجوار كشري الأمالي ومطعم الشبراوي</div>
+  </div>
   <a class="btn gold" id="waFoot" href="#" target="_blank" rel="noopener">اطلب واتساب</a>
   <small>© ماكس مام - Maximmum Restaurant</small>
 </footer>
 
+<script src="script.js"></script>
 <script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin></script>
-<script src="script.js"></script>
 <script src="app.jsx"></script>
 </body>
 </html>
