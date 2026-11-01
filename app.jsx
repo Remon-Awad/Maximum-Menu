@@ -54,11 +54,16 @@ function Cart({ open, setOpen, cart, change, clear }) {
   const fld = (k, ph, type) => h("input", { className: "fld" + (err[k] && !c[k].trim() ? " err" : ""), placeholder: ph, type, value: c[k], onChange: e => set(k, e.target.value) });
   const send = () => {
     const miss = { phone: !c.phone.trim(), addr: !c.addr.trim() };
-    if (miss.phone || miss.addr) { setErr(miss); return; }
+    if (miss.phone || miss.addr) {
+      setErr(miss); toast("⚠ اكتب رقم الموبايل والعنوان الأول");
+      const t = document.querySelectorAll(".drawer .fld")[miss.phone ? 1 : 2];
+      if (t) { t.scrollIntoView({ block: "center", behavior: "smooth" }); t.focus(); }
+      return;
+    }
     store.set("mm_cust", c);
     const body = cart.map(l => `• ${l.name} (${l.size}) × ${l.qty} = ${l.price * l.qty} ج`).join("\n");
     const msg = `🧾 فاتورة طلب - ماكس مام\nرقم: ${no}\nالتاريخ: ${now}\n━━━━━━━━━━\n${body}\n━━━━━━━━━━\nعدد القطع: ${cnt}\nالإجمالي: ${total} ج (التوصيل حسب المنطقة)\n\n👤 ${c.name || "-"}\n📞 ${c.phone}\n📍 ${c.addr}`;
-    const url = window.waLink(msg); if (!window.open(url, "_blank")) location.href = url;
+    const url = (window.waLink || (t => "https://api.whatsapp.com/send?phone=" + window.PHONE + "&text=" + encodeURIComponent(t)))(msg); if (!window.open(url, "_blank")) location.href = url;
     setSent(true); setTimeout(() => setSent(false), 3500);
   };
   return h(Fragment, null,
