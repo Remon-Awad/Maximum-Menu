@@ -1,5 +1,8 @@
 // ===== إعدادات المطعم =====
 window.PHONE = "201113955900"; // رقم الواتساب (بكود مصر بدون +)
+// تنضيف الرقم تلقائياً (بيشيل المسافات والـ + وبيحوّل 01xxxxxxxxx إلى 201xxxxxxxxx)
+window.PHONE = String(window.PHONE).replace(/\D/g, "").replace(/^0+/, "20");
+window.waLink = text => "https://wa.me/" + window.PHONE + (text ? "?text=" + encodeURIComponent(text) : "");
 
 // الصيغة: [الاسم, [الأسعار حسب المقاسات (0 = مش متاح)], وصف?, جديد?]
 const LSM = ["L", "M", "S"];
@@ -68,7 +71,7 @@ window.MENU = [
 ];
 
 // ===== تفاعلات عامة =====
-const wa = "https://wa.me/" + window.PHONE;
+const wa = window.waLink("أهلاً ماكس مام، عايز أطلب");
 ["waHero", "waNight", "waFoot", "waHead"].forEach(id => { const e = document.getElementById(id); if (e) e.href = wa; });
 
 // شريط التقدم + الهيدر
